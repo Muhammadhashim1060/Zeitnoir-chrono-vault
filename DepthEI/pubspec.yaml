@@ -1,0 +1,43 @@
+name: depth_ei
+description: Depth.EI — AI-powered financial and motivational coach to escape debt, manage money, and unlock wealth.
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+# When you open in Android Studio, run: flutter pub get
+# Then run: flutterfire configure --project=<your-firebase-project-id>
+# And: flutter run
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  google_fonts: ^6.2.1
+  provider: ^6.1.2
+  intl: ^0.19.0
+  http: ^1.2.2
+  url_launcher: ^6.3.0
+  shared_preferences: ^2.3.2
+  fl_chart: ^0.66.2
+
+  # Firebase
+  firebase_core: ^2.27.0
+  firebase_auth: ^4.17.8
+  cloud_firestore: ^4.15.8
+  cloud_functions: ^4.6.7
+  google_sign_in: ^6.2.1
+
+  # Payments
+  flutterwave_standard: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/branding/

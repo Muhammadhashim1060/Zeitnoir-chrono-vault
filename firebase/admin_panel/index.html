@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Depth.EI Admin</title>
+  <style>
+    body { background: #121212; color: #fff; font-family: Inter, sans-serif; }
+    .brand { font-weight: 800; font-size: 24px; background: linear-gradient(90deg,#00FFB7,#A7FF83); -webkit-background-clip: text; color: transparent; }
+    .card { background: #1a1a1a; border-radius: 12px; padding: 16px; margin: 12px 0; }
+    input, button, textarea { border-radius: 10px; padding: 10px; border: none; }
+    button { background: #00FFB7; color: #000; font-weight: 700; cursor: pointer; }
+  </style>
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js'
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js'
+    import { getFunctions, httpsCallable } from 'https://www.gstatic.com/firebasejs/10.13.1/firebase-functions.js'
+
+    const firebaseConfig = {
+      apiKey: 'REPLACE_ME',
+      authDomain: 'REPLACE_ME',
+      projectId: 'REPLACE_ME',
+      appId: 'REPLACE_ME',
+      messagingSenderId: 'REPLACE_ME',
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const functions = getFunctions(app);
+
+    const status = document.getElementById('status');
+    const form = document.getElementById('login');
+    const broadcastForm = document.getElementById('broadcast');
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        status.textContent = `Logged in as ${user.email}`;
+        document.getElementById('app').style.display = 'block';
+        document.getElementById('auth').style.display = 'none';
+      } else {
+        document.getElementById('app').style.display = 'none';
+        document.getElementById('auth').style.display = 'block';
+      }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (e) {
+        alert('Login failed: ' + e.message);
+      }
+    });
+
+    broadcastForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const message = document.getElementById('broadcastMessage').value;
+      const callable = httpsCallable(functions, 'broadcast');
+      try {
+        await callable({ message });
+        alert('Broadcast sent');
+      } catch (e) {
+        alert('Broadcast failed: ' + e.message);
+      }
+    });
+  </script>
+</head>
+<body>
+  <div style="max-width: 720px; margin: 0 auto; padding: 24px;">
+    <div class="brand">Depth.EI Admin</div>
+    <p id="status">Please login</p>
+
+    <div id="auth" class="card">
+      <form id="login">
+        <div>
+          <input id="email" placeholder="Admin email" type="email" required />
+        </div>
+        <div>
+          <input id="password" placeholder="Password" type="password" required />
+        </div>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+
+    <div id="app" class="card" style="display:none;">
+      <h3>Broadcast</h3>
+      <form id="broadcast">
+        <textarea id="broadcastMessage" rows="4" style="width:100%;" placeholder="Motivational message to all users"></textarea>
+        <br />
+        <button type="submit">Send Broadcast</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
