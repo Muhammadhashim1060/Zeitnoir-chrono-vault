@@ -20,7 +20,12 @@ Brand Colors: #00FFB7 (Teal Glow), #121212 (Dark), #A7FF83 (Accent)
 - FlutterFire CLI (`dart pub global activate flutterfire_cli`)
 - Node.js 18+ for Cloud Functions
 
-### 2) Configure Firebase
+### 2) Create Flutter app (if needed)
+```bash
+flutter create DepthEI
+```
+
+### 3) Configure Firebase
 - Create Firebase project
 - From `/workspace/DepthEI`, run:
   ```bash
@@ -36,7 +41,7 @@ Brand Colors: #00FFB7 (Teal Glow), #121212 (Dark), #A7FF83 (Accent)
   # Or set env var at deploy time: OPENAI_API_KEY=... firebase deploy --only functions
   ```
 
-### 3) Install dependencies
+### 4) Install dependencies
 ```bash
 cd /workspace/DepthEI
 flutter pub get
@@ -46,16 +51,16 @@ npm install
 npm run build
 ```
 
-### 4) Emulators (optional)
+### 5) Emulators (optional)
 ```bash
 firebase emulators:start --only functions,firestore,hosting
 ```
 
-### 5) Running the app
+### 6) Running the app
 - Open `DepthEI` in Android Studio
 - Run on Android or iOS simulator / device
 
-### 6) Deploy
+### 7) Deploy
 ```bash
 cd /workspace/firebase/functions
 OPENAI_API_KEY=sk-... npm run deploy
@@ -65,7 +70,7 @@ firebase deploy --only hosting
 ```
 
 ## Notes
-- Auth UI is stubbed. Hook `AuthService` into UI to enable full Firebase Auth (email/password + Google).
+- Auth is wired to Firebase; update UI and profile via `/setup`.
 - Replace all `REPLACE_ME` and `REPLACE_WITH_FIREBASE_PROJECT_ID` values.
-- Implement Flutterwave payments in `WalletScreen` using `flutterwave_standard`, and configure webhook URL to Functions `flutterwaveWebhook`.
+- Implement Flutterwave keys in `FlutterwaveService` and configure webhook URL to Functions `flutterwaveWebhook`.
 - Security rules included in `firebase/firestore.rules`.

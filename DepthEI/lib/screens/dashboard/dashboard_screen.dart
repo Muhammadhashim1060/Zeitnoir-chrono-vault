@@ -19,7 +19,7 @@ class DashboardScreen extends StatelessWidget {
                 children: const [
                   Text('Total Debt', style: TextStyle(fontSize: 16, color: Colors.white70)),
                   SizedBox(height: 8),
-                  Text(' 250.00', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+                  Text('4 250.00', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
                 ],
               ),
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../services/flutterwave_service.dart';
 
 class WalletScreen extends StatelessWidget {
   const WalletScreen({super.key});
@@ -26,10 +27,12 @@ class WalletScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text('Starter'),
-                          const Text(' 10 / month'),
+                          const Text('4 10 / month'),
                           const SizedBox(height: 12),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              await FlutterwaveService.startSubscription(context: context, plan: 'starter', amountUsd: 10);
+                            },
                             child: const Text('Subscribe (Stub)'),
                           )
                         ],
@@ -46,10 +49,12 @@ class WalletScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const Text('Premium'),
-                          const Text(' 30 / month'),
+                          const Text('4 30 / month'),
                           const SizedBox(height: 12),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              await FlutterwaveService.startSubscription(context: context, plan: 'premium', amountUsd: 30);
+                            },
                             child: const Text('Subscribe (Stub)'),
                           )
                         ],
